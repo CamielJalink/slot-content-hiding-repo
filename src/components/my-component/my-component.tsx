@@ -1,32 +1,31 @@
 import { Component, Prop, h } from '@stencil/core';
-import { format } from '../../utils/utils';
 
 @Component({
   tag: 'my-component',
   styleUrl: 'my-component.css',
-  shadow: true,
+  shadow: false,
 })
 export class MyComponent {
-  /**
-   * The first name
-   */
-  @Prop() first: string;
+  @Prop({mutable: true}) show = true;
 
-  /**
-   * The middle name
-   */
-  @Prop() middle: string;
+  onClick(){
+    this.show = !this.show;
+  }
 
-  /**
-   * The last name
-   */
-  @Prop() last: string;
-
-  private getText(): string {
-    return format(this.first, this.middle, this.last);
+  renderContentSlot(){
+    if(this.show){
+      return(
+        <slot name={"content"}></slot>
+      )
+    } else {
+      return null;
+    }
   }
 
   render() {
-    return <div>Hello, World! I'm {this.getText()}</div>;
+    return (<div onClick={() => this.onClick()}>
+      <h1>Click me to hide component. Currently show is set to {`${this.show}`}</h1>
+      {this.renderContentSlot()}
+    </div>);
   }
 }

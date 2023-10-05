@@ -9,6 +9,10 @@
     <script nomodule src="/build/slot-content-hiding-repro.js"></script>
   </head>
   <body>
-    <my-component first="Stencil" last="'Don't call me a framework' JS"></my-component>
+    <my-component first="Stencil" last="'Don't call me a framework' JS">
+      <span slot='content'>
+        <button>I am slot content</button>
+      </span>
+    </my-component>
   </body>
 </html>
